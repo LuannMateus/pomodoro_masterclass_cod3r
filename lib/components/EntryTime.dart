@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro/store/pomodoro.store.dart';
+import 'package:provider/provider.dart';
 
 class EntryTime extends StatelessWidget {
   final String title;
@@ -16,54 +18,54 @@ class EntryTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            this.title,
-            style: TextStyle(
-              fontSize: 25,
+    final store = Provider.of<PomodoroStore>(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          this.title,
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: this.decrease,
+              child: Icon(
+                Icons.arrow_downward,
+                color: Colors.white,
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                padding: const EdgeInsets.all(15),
+                primary: store.isWorking() ? Colors.red : Colors.green,
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: this.decrease,
-                child: Icon(
-                  Icons.arrow_downward,
-                  color: Colors.white,
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  padding: const EdgeInsets.all(15),
-                  primary: Colors.red,
-                ),
+            Text(
+              '${this.value} min',
+              style: TextStyle(
+                fontSize: 18,
               ),
-              Text(
-                '${this.value} min',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
+            ),
+            ElevatedButton(
+              onPressed: this.increase,
+              child: Icon(
+                Icons.arrow_upward,
+                color: Colors.white,
               ),
-              ElevatedButton(
-                onPressed: this.increase,
-                child: Icon(
-                  Icons.arrow_upward,
-                  color: Colors.white,
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  padding: const EdgeInsets.all(15),
-                  primary: Colors.red,
-                ),
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                padding: const EdgeInsets.all(15),
+                primary: store.isWorking() ? Colors.red : Colors.green,
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

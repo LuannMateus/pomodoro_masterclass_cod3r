@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: <Provider>[
+      providers: [
         Provider<PomodoroStore>(
           create: (_) => PomodoroStore(),
         )
